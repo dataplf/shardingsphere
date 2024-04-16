@@ -34,6 +34,11 @@ public final class TrinoDatabaseType implements DatabaseType {
     public Collection<String> getJdbcUrlPrefixes() {
         return Arrays.asList("jdbc:trino:");
     }
+
+    @Override
+    public Optional<DatabaseType> getTrunkDatabaseType() {
+        return Optional.of(TypedSPILoader.getService(DatabaseType.class, "MySQL"));
+    }
     
     @Override
     public String getType() {

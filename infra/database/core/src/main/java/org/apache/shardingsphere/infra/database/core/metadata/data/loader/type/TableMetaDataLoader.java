@@ -53,7 +53,7 @@ public final class TableMetaDataLoader {
             String formattedTableNamePattern = dialectDatabaseMetaData.formatTableNamePattern(tableNamePattern);
             return isTableExist(connection, formattedTableNamePattern)
                     ? Optional.of(new TableMetaData(tableNamePattern, ColumnMetaDataLoader.load(
-                            connection, formattedTableNamePattern, databaseType), IndexMetaDataLoader.load(connection, formattedTableNamePattern), Collections.emptyList()))
+                            connection, formattedTableNamePattern, databaseType), Collections.emptyList(), Collections.emptyList()))
                     : Optional.empty();
         }
     }

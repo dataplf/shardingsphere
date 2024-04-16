@@ -66,12 +66,15 @@ public final class TrinoMetaDataLoader implements DialectMetaDataLoader {
     public Collection<SchemaMetaData> load(final MetaDataLoaderMaterial material) throws SQLException {
         Collection<TableMetaData> tableMetaDataList = new LinkedList<>();
         Map<String, Collection<ColumnMetaData>> columnMetaDataMap = loadColumnMetaDataMap(material.getDataSource(), material.getActualTableNames());
-        Map<String, Collection<IndexMetaData>> indexMetaDataMap = columnMetaDataMap.isEmpty() ? Collections.emptyMap() : loadIndexMetaData(material.getDataSource(), columnMetaDataMap.keySet());
-        Map<String, Collection<ConstraintMetaData>> constraintMetaDataMap =
-                columnMetaDataMap.isEmpty() ? Collections.emptyMap() : loadConstraintMetaDataMap(material.getDataSource(), columnMetaDataMap.keySet());
+        // Map<String, Collection<IndexMetaData>> indexMetaDataMap = columnMetaDataMap.isEmpty() ? Collections.emptyMap() : loadIndexMetaData(material.getDataSource(), columnMetaDataMap.keySet());
+        // Map<String, Collection<ConstraintMetaData>> constraintMetaDataMap =
+        //        columnMetaDataMap.isEmpty() ? Collections.emptyMap() : loadConstraintMetaDataMap(material.getDataSource(), columnMetaDataMap.keySet());
         for (Entry<String, Collection<ColumnMetaData>> entry : columnMetaDataMap.entrySet()) {
-            Collection<IndexMetaData> indexMetaDataList = indexMetaDataMap.getOrDefault(entry.getKey(), Collections.emptyList());
-            Collection<ConstraintMetaData> constraintMetaDataList = constraintMetaDataMap.getOrDefault(entry.getKey(), Collections.emptyList());
+            // Collection<IndexMetaData> indexMetaDataList = indexMetaDataMap.getOrDefault(entry.getKey(), Collections.emptyList());
+            // Collection<ConstraintMetaData> constraintMetaDataList = constraintMetaDataMap.getOrDefault(entry.getKey(), Collections.emptyList());
+            // return empty for index and contraint metadata
+            Collection<IndexMetaData> indexMetaDataList = Collections.emptyList();
+            Collection<ConstraintMetaData> constraintMetaDataList = Collections.emptyList();
             tableMetaDataList.add(new TableMetaData(entry.getKey(), entry.getValue(), indexMetaDataList, constraintMetaDataList));
         }
         return Collections.singletonList(new SchemaMetaData(material.getDefaultSchemaName(), tableMetaDataList));
